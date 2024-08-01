@@ -11,6 +11,8 @@ export default function Home() {
         <UserButton />
       </SignedIn>
       <Button>hello finance saas</Button>
+
+      {/* <div>{new Date().toLocaleTimeString()}</div> */}
     </div>
   );
 }
