@@ -1,7 +1,6 @@
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
-import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 

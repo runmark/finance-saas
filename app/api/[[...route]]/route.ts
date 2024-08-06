@@ -1,8 +1,7 @@
 import { Hono } from "hono";
+import { handle } from "hono/vercel";
 import authors from "./authors";
 import books from "./books";
-import { handle } from "hono/vercel";
-import { clerkMiddleware } from "@hono/clerk-auth";
 
 
 // export const runtime = 'edge'
