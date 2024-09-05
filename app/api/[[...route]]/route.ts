@@ -16,7 +16,7 @@ const routes = app
 
 export default app;
 
-// export type AppType = typeof routes;
+// export type AppType = typeof routes; // used for tRPC
 
 export const GET = handle(app);
 export const POST = handle(app);
