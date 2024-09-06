@@ -11,6 +11,7 @@ const app = new Hono()
 
             const auth = getAuth(c);
             if (!auth?.userId) {
+                // throw new HTTPException(401, "Unauthorized");
                 return c.json({ error: "Unauthorized" }, 401);
             }
 
@@ -22,7 +23,7 @@ const app = new Hono()
                 .from(accounts)
                 .where(eq(accounts.userId, auth.userId));
 
-            return c.json({ accounts: data });
+            return c.json({ data });
         });
 
 export default app;

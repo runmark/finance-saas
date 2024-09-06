@@ -16,6 +16,10 @@ const routes = app
     .route('/books', books)
     .route('/accounts', accounts);
 
+// app.onError((err, c) => {
+//     return c.json({ error: err.message }, err.status);
+// });
+
 export default app;
 
 export const GET = handle(app);
