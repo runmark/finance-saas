@@ -4,6 +4,7 @@ import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { zValidator } from "@hono/zod-validator";
 import { eq } from "drizzle-orm";
 import { Hono } from "hono";
+import { createId } from "@paralleldrive/cuid2";
 
 const app = new Hono()
   .get("/", clerkMiddleware(), async (c) => {
@@ -37,7 +38,7 @@ const app = new Hono()
       const [data] = await db
         .insert(accounts)
         .values({
-          id: "test",
+          id: createId(),
           userId: auth.userId,
           ...values,
         })

@@ -1,7 +1,13 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { useNewAccountState } from "@/features/accounts/zustand-hooks/use-new-account-state";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 export default function Home() {
+
+const { isOpen, open, close } = useNewAccountState();
+
   return (
     <div>
       <SignedOut>
@@ -10,9 +16,9 @@ export default function Home() {
       <SignedIn>
         <UserButton />
       </SignedIn>
-      <Button>hello finance saas</Button>
 
-      {/* <div>{new Date().toLocaleTimeString()}</div> */}
+      <Button onClick={open}>open the account sheet</Button>
+
     </div>
   );
 }
