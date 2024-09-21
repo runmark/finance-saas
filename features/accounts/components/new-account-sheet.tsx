@@ -1,5 +1,6 @@
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useNewAccountState } from "../zustand-hooks/use-new-account-state";
+import { AccountForm } from "./account-form";
 
 export const NewAccountSheet = () => {
     
@@ -14,6 +15,12 @@ export const NewAccountSheet = () => {
                         Create a new account to track your transactions.
                     </SheetDescription>
                 </SheetHeader>
+                <AccountForm
+                    onSubmit={() => {}}
+                    defaultValues={{
+                        name: "hello default",
+                    }}
+                />
             </SheetContent>
         </Sheet>
     )
