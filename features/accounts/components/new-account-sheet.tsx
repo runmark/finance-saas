@@ -1,10 +1,20 @@
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useNewAccountState } from "../zustand-hooks/use-new-account-state";
 import { AccountForm } from "./account-form";
+import { useCreateAccounts } from "../api-hooks/use-create-accounts";
 
 export const NewAccountSheet = () => {
     
     const { isOpen, close } = useNewAccountState();
+    const mutation = useCreateAccounts();
+
+    const handleSubmit = (values: any) => {
+        mutation.mutate(values, {
+            onSuccess: () => {
+                close();
+            },
+        });
+    }
 
     return (
         <Sheet open={isOpen} onOpenChange={close}>
@@ -16,9 +26,10 @@ export const NewAccountSheet = () => {
                     </SheetDescription>
                 </SheetHeader>
                 <AccountForm
-                    onSubmit={() => {}}
+                    onSubmit={handleSubmit}
+                    disabled={mutation.isPending}
                     defaultValues={{
-                        name: "hello default",
+                        name: "",
                     }}
                 />
             </SheetContent>
