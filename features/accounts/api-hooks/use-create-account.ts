@@ -11,7 +11,7 @@ type RequestType = InferRequestType<typeof client.api.accounts.$post>["json"];
 // const accountSchema = insertAccountSchema.pick({ name: true });
 // type AccountType = z.infer<typeof accountSchema>;
 
-export const useCreateAccounts = () => {
+export const useCreateAccount = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({

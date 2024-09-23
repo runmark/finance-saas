@@ -1,12 +1,12 @@
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useNewAccountState } from "../zustand-hooks/use-new-account-state";
 import { AccountForm } from "./account-form";
-import { useCreateAccounts } from "../api-hooks/use-create-accounts";
+import { useCreateAccount } from "../api-hooks/use-create-account";
 
 export const NewAccountSheet = () => {
     
     const { isOpen, close } = useNewAccountState();
-    const mutation = useCreateAccounts();
+    const mutation = useCreateAccount();
 
     const handleSubmit = (values: any) => {
         mutation.mutate(values, {

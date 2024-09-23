@@ -54,9 +54,9 @@ export const AccountForm = ({
                     </FormItem>
                 )} />
                 
-                <Button className="w-full" disabled={disabled}>{id ? "Save Changes" : "Create Account"}</Button>
+                <Button type="submit" className="w-full" disabled={disabled}>{id ? "Save Changes" : "Create Account"}</Button>
 
-                {id && (
+                {!!id && (
                     <Button variant="outline" size="icon" className="w-full" onClick={handleDelete} disabled={disabled} >
                         <Trash className="size-4 mr-2" />
                         Delete Account
