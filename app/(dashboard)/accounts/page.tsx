@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ResponseType, columns } from "@/app/(dashboard)/accounts/columns";
 import { DataTable } from "@/components/data-table";
 import { Button } from "@/components/ui/button";
-import { useNewAccountState } from "@/features/accounts/zustand-hooks/use-new-account-state";
+import { useNewAccountState } from "@/features/accounts/hooks-state/use-new-account-state";
 
 function getData(): ResponseType[] {
   // Fetch data from your API here.
