@@ -5,6 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useOpenAccountState } from "@/features/accounts/hooks-state/use-open-account-state";
 
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
@@ -15,6 +16,8 @@ type Props = {
 };
 
 export const Actions = ({ id }: Props) => {
+  const { open } = useOpenAccountState();
+
   return (
     <>
       {/* <ConfirmDialog /> */}
@@ -26,8 +29,8 @@ export const Actions = ({ id }: Props) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem
-          // onClick={() => onOpen(id)}
-          // disabled={deleteMutation.isPending}
+            onClick={() => open(id)}
+            // disabled={deleteMutation.isPending}
           >
             <Edit className="size-4 mr-2" />
             Edit

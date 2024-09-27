@@ -11,7 +11,7 @@ type RequestType = InferRequestType<
   (typeof client.api.accounts)[":id"]["$patch"]
 >["json"];
 
-export const useEditAccount = async (id?: string) => {
+export const useEditAccount = (id?: string) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
@@ -31,4 +31,6 @@ export const useEditAccount = async (id?: string) => {
       toast.error("Failed to update account");
     },
   });
+
+  return mutation;
 };

@@ -1,19 +1,22 @@
-"use client"
+"use client";
 
-import { NewAccountSheet } from "@/features/accounts/components/new-account-sheet"
+import { EditAccountSheet } from "@/features/accounts/components/edit-account-sheet";
+import { NewAccountSheet } from "@/features/accounts/components/new-account-sheet";
 import { useMountedState } from "react-use";
 
 export const SheetProvider = () => {
-    
-    const isMounted = useMountedState();
-    if (!isMounted) return null;
+  const isMounted = useMountedState();
+  if (!isMounted) return null;
 
-    // const [isMounted, setIsMounted] = useState(false);
-    // useEffect(() => {
-    //     setIsMounted(true);
-    // }, []);
+  // const [isMounted, setIsMounted] = useState(false);
+  // useEffect(() => {
+  //     setIsMounted(true);
+  // }, []);
 
-    return (
-        <NewAccountSheet />
-    )
-}
+  return (
+    <>
+      <NewAccountSheet />
+      <EditAccountSheet />
+    </>
+  );
+};

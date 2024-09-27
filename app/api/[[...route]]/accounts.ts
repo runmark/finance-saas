@@ -89,7 +89,7 @@ const app = new Hono()
       const [data] = await db
         .update(accounts)
         .set(values)
-        .where(and(eq(accounts.userId, auth.userId), eq(accounts, id)))
+        .where(and(eq(accounts.userId, auth.userId), eq(accounts.id, id)))
         .returning();
 
       if (!data) return c.json({ error: "Not found" }, 404);
