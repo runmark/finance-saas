@@ -11,6 +11,7 @@ import {
   getSortedRowModel,
   ColumnFiltersState,
   getFilteredRowModel,
+  Row,
 } from "@tanstack/react-table";
 
 import {
@@ -24,15 +25,20 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Trash } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  disabled?: boolean;
+  onDelete: (rows: Row<TData>[]) => void;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  disabled,
+  onDelete,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -69,6 +75,25 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
       </div>
+
+      {table.getFilteredSelectedRowModel().rows.length > 0 && (
+        <Button
+          disabled={disabled}
+          onClick={async () => {
+            const ok = await confirm();
+            if (ok) {
+              onDelete(table.getFilteredSelectedRowModel().rows);
+              table.resetRowSelection();
+            }
+          }}
+          size="sm"
+          variant="outline"
+          className="ml-auto font-normal text-xs"
+        >
+          <Trash className="size-4 mr-2" />
+          Delete ({table.getFilteredSelectedRowModel().rows.length})
+        </Button>
+      )}
       <div className="rounded-md border">
         <Table>
           <TableHeader>

@@ -32,12 +32,11 @@ export const EditAccountSheet = () => {
     <Sheet open={isOpen} onOpenChange={close}>
       <SheetContent className="space-y-4">
         <SheetHeader>
-          <SheetTitle>New Account</SheetTitle>
-          <SheetDescription>
-            Create a new account to track your transactions.
-          </SheetDescription>
+          <SheetTitle>Edit Account</SheetTitle>
+          <SheetDescription>Edit Account.</SheetDescription>
         </SheetHeader>
         <AccountForm
+          id={id}
           onSubmit={handleSubmit}
           disabled={mutation.isPending}
           defaultValues={defaultValues}

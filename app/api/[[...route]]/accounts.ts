@@ -51,6 +51,28 @@ const app = new Hono()
       return c.json({ data });
     }
   )
+  .delete(
+    "/:id",
+    clerkMiddleware(),
+    zValidator("param", z.object({ id: z.string() })),
+    async (c) => {
+      const auth = getAuth(c);
+      if (!auth?.userId) return c.json({ error: "Unauthorized" }, 401);
+
+      const { id } = c.req.valid("param");
+      if (!id) return c.json({ error: "Missing Id" }, 400);
+
+      const [data] = await db
+        .delete(accounts)
+        .where(and(eq(accounts.id, id), eq(accounts.userId, auth.userId)))
+        .returning({
+          id: accounts.id,
+        });
+      if (!data) return c.json({ error: "Not Found" }, 404);
+
+      return c.json({ data });
+    }
+  )
   .post(
     "/",
     clerkMiddleware(),
