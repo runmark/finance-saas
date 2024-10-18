@@ -3,12 +3,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 import { toast } from "sonner";
 
-// hono api schema ----> typescript type
+// hono api schema (backed by zod schema) ----> typescript type
 type ResponseType = InferResponseType<typeof client.api.accounts.$post>;
 type RequestType = InferRequestType<typeof client.api.accounts.$post>["json"];
 
-// db schema ---->  zod schema ----> typescript type
+// db schema (drizzle-zod) ---->  zod schema
 // const accountSchema = insertAccountSchema.pick({ name: true });
+// zod schema ----> typescript type
 // type AccountType = z.infer<typeof accountSchema>;
 
 export const useCreateAccount = () => {

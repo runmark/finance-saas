@@ -6,13 +6,18 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useEditAccount } from "../hooks-api/use-edit-account";
+import { useGetAccount } from "../hooks-api/use-get-account";
 import { useOpenAccountState } from "../hooks-state/use-open-account-state";
 import { AccountForm } from "./account-form";
-import { useGetAccount } from "../hooks-api/use-get-account";
 
 export const EditAccountSheet = () => {
-  const { isOpen, open, close, id } = useOpenAccountState();
+  const { isOpen, close, id } = useOpenAccountState();
+  const accountQuery = useGetAccount(id!);
   const mutation = useEditAccount(id);
+
+  const defaultValues = accountQuery.data
+    ? { name: accountQuery.data.name }
+    : { name: "" };
 
   const handleSubmit = (values: any) => {
     mutation.mutate(values, {
@@ -21,12 +26,6 @@ export const EditAccountSheet = () => {
       },
     });
   };
-
-  const accountQuery = useGetAccount(id!);
-
-  const defaultValues = accountQuery.data
-    ? { name: accountQuery.data.name }
-    : { name: "" };
 
   return (
     <Sheet open={isOpen} onOpenChange={close}>

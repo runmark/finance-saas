@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useGetAccounts } from "@/features/accounts/hooks-api/use-get-accounts";
 import { useNewAccountState } from "@/features/accounts/hooks-state/use-new-account-state";
 import { Plus } from "lucide-react";
+import { useBulkDeleteAccount } from "@/features/accounts/hooks-api/use-bulk-delete-account";
 
 // function getData(): ResponseType[] {
 //   // Fetch data from your API here.
@@ -27,10 +28,21 @@ import { Plus } from "lucide-react";
 const AccountsPage = () => {
   const newAccountState = useNewAccountState();
 
+  const bulkDeleteAccounts = useBulkDeleteAccount();
   const accountsQuery = useGetAccounts();
   const accounts = accountsQuery.data || [];
 
   const isDisabled = accountsQuery.isLoading;
+
+  if (accountsQuery.isLoading) {
+    return (
+      <div>
+        <Card>
+          <CardHeader></CardHeader>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
@@ -47,8 +59,9 @@ const AccountsPage = () => {
             columns={columns}
             data={accounts}
             disabled={isDisabled}
-            onDelete={() => {
-              console.log("delete");
+            onDelete={(rows) => {
+              const ids = rows.map((row) => row.original.id);
+              bulkDeleteAccounts.mutate({ ids });
             }}
           />
         </CardContent>
