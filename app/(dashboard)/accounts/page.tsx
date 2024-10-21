@@ -56,6 +56,7 @@ const AccountsPage = () => {
         </CardHeader>
         <CardContent>
           <DataTable
+            filterkey="name"
             columns={columns}
             data={accounts}
             disabled={isDisabled}

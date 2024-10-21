@@ -7,24 +7,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useDeleteAccount } from "@/features/accounts/hooks-api/use-delete-account";
-import { useOpenAccountState } from "@/features/accounts/hooks-state/use-open-account-state";
+import { useDeleteCategory } from "@/features/categories/hooks-api/use-delete-category";
+import { useOpenCategory } from "@/features/categories/hooks-state/use-open-category";
 import { useConfirm } from "@/hooks/use-confirm";
-
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
 type Props = {
   id: string;
 };
-
 export const Actions = ({ id }: Props) => {
-  const { open } = useOpenAccountState();
+  const { onOpen, onClose } = useOpenCategory();
   const [ConfirmDialog, confirm] = useConfirm(
-    "Are you sure?",
-    "You are about to delete this account."
+    "Are u sure?",
+    "You are about to delete this category."
   );
 
-  const deleteMutation = useDeleteAccount(id);
+  const deleteMutation = useDeleteCategory(id);
 
   const handleDelete = async () => {
     const ok = await confirm();
@@ -42,7 +40,7 @@ export const Actions = ({ id }: Props) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem
-            onClick={() => open(id)}
+            onClick={() => onOpen(id)}
             disabled={deleteMutation.isPending}
           >
             <Edit className="size-4 mr-2" />

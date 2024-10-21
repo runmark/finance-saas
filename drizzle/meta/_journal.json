@@ -8,6 +8,13 @@
       "when": 1722946626684,
       "tag": "0000_sad_big_bertha",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1729425762614,
+      "tag": "0001_windy_machine_man",
+      "breakpoints": true
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { client } from "@/lib/hono";
-import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 import { toast } from "sonner";
 
@@ -23,10 +23,10 @@ export const useBulkDeleteAccount = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
-      toast.success("Accounts bulk deleted successfully");
+      toast.success("accounts bulk deleted successfully");
     },
     onError: () => {
-      toast.error("Failed to bulk delete account");
+      toast.error("Failed to bulk delete accounts");
     },
   });
 

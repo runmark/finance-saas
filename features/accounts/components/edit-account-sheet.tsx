@@ -9,9 +9,15 @@ import { useEditAccount } from "../hooks-api/use-edit-account";
 import { useGetAccount } from "../hooks-api/use-get-account";
 import { useOpenAccountState } from "../hooks-state/use-open-account-state";
 import { AccountForm } from "./account-form";
+import { Loader2 } from "lucide-react";
+import { insertAccountSchema } from "@/db/schema";
+import { z } from "zod";
+
+const formSchema = insertAccountSchema.pick({ name: true });
+type FormValues = z.input<typeof formSchema>;
 
 export const EditAccountSheet = () => {
-  const { isOpen, close, id } = useOpenAccountState();
+  const { isOpen, onClose, id } = useOpenAccountState();
   const accountQuery = useGetAccount(id!);
   const mutation = useEditAccount(id);
 
@@ -19,27 +25,33 @@ export const EditAccountSheet = () => {
     ? { name: accountQuery.data.name }
     : { name: "" };
 
-  const handleSubmit = (values: any) => {
+  const onSubmit = (values: FormValues) => {
     mutation.mutate(values, {
       onSuccess: () => {
-        close();
+        onClose();
       },
     });
   };
 
   return (
-    <Sheet open={isOpen} onOpenChange={close}>
+    <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent className="space-y-4">
         <SheetHeader>
           <SheetTitle>Edit Account</SheetTitle>
           <SheetDescription>Edit Account.</SheetDescription>
         </SheetHeader>
-        <AccountForm
-          id={id}
-          onSubmit={handleSubmit}
-          disabled={mutation.isPending}
-          defaultValues={defaultValues}
-        />
+        {accountQuery.isLoading ? (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Loader2 className="size-4 text-muted-foreground animate-spin" />
+          </div>
+        ) : (
+          <AccountForm
+            id={id}
+            onSubmit={onSubmit}
+            disabled={mutation.isPending}
+            defaultValues={defaultValues}
+          />
+        )}
       </SheetContent>
     </Sheet>
   );
