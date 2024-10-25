@@ -105,8 +105,10 @@ const app = new Hono()
       if (!data) return c.json({ error: "Transaction not found" }, 404);
 
       return c.json({
-        ...data,
-        amount: convertAmountFromMilliunits(data.amount),
+        data: {
+          ...data,
+          amount: convertAmountFromMilliunits(data.amount),
+        },
       });
     }
   )

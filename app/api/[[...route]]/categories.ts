@@ -30,7 +30,7 @@ const app = new Hono()
   .get(
     "/:id",
     clerkMiddleware(),
-    zValidator("param", z.object({ id: z.string() })),
+    zValidator("param", z.object({ id: z.string().optional() })),
     async (c) => {
       const auth = getAuth(c);
       if (!auth?.userId) return c.json({ error: "Unauthorized" }, 401);
